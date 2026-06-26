@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KeyPulse - Keyboard Heatmap Tracker</title>
+    <!-- Google Fonts for premium typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="logo-area">
+                <span class="logo-icon">🎹</span>
+                <div class="logo-text">
+                    <h1>KeyPulse</h1>
+                    <p>Real-time Keyboard Heatmap Tracker</p>
+                </div>
+            </div>
+            <div class="actions">
+                <button id="theme-toggle" class="btn btn-secondary">
+                    <span class="btn-icon" id="theme-icon">🌙</span> <span id="theme-text">Cyber Dark</span>
+                </button>
+                <button id="reset-btn" class="btn btn-danger">
+                    <span class="btn-icon">🔄</span> Reset Heatmap
+                </button>
+            </div>
+        </header>
+
+        <!-- Stats Dashboard -->
+        <section class="stats-dashboard">
+            <div class="stat-card">
+                <span class="stat-icon">📊</span>
+                <div class="stat-info">
+                    <span class="stat-label">Total Keypresses</span>
+                    <span id="stat-total" class="stat-value">0</span>
+                </div>
+            </div>
+            <div class="stat-card">
+                <span class="stat-icon">🔥</span>
+                <div class="stat-info">
+                    <span class="stat-label">Most Active Key</span>
+                    <span id="stat-peak" class="stat-value">-</span>
+                </div>
+            </div>
+            <div class="stat-card">
+                <span class="stat-icon">⚡</span>
+                <div class="stat-info">
+                    <span class="stat-label">Unique Keys Used</span>
+                    <span id="stat-unique" class="stat-value">0</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Typing Sandbox -->
+        <section class="sandbox-section">
+            <div class="card-header">
+                <h2>Interactive Sandbox</h2>
+                <span class="badge">Type here to test</span>
+            </div>
+            <textarea id="typing-sandbox" placeholder="Start typing here... Watch the keys light up on the heatmap below! (Tracking works globally as long as this tab is active)."></textarea>
+        </section>
+
+        <!-- Keyboard Heatmap Layout -->
+        <main class="keyboard-section">
+            <div class="card-header">
+                <h2>Virtual Keyboard Heatmap</h2>
+                <div class="color-legend">
+                    <span>Rarely Pressed</span>
+                    <div class="legend-gradient"></div>
+                    <span>Most Pressed</span>
+                </div>
+            </div>
+
+            <div class="keyboard" id="virtual-keyboard">
+                <!-- Row 1 -->
+                <div class="keyboard-row">
+                    <div class="key" data-key="Backquote"><span class="key-label">~</span><span class="key-count">0</span></div>
+                    <div class="key" data-key="Digit1"><span class="key-label">1</span><span class="key-count">0</span></div>
+                    <div class="key" data-key="Digit2"><span class="key-label">2</span><span class="key-count">0</span></div>
+                    <div class="key" data-key="Digit3"><span class="key-label">3</span><span class="key-count">0</span></div>
+                    <div class="key" data-key="Digit4"><span class="key-label">4</span><span class="key-count">0</span></div>
+                    <div class="key" data-key="Digit5"><span class="key-label">5</span><span class="key-count">0</span></div>
+                    <div class="key" data-key="Digit6"><span class="key-label">6</span><span class="key-count">0</span></div>
+                    <div class="key" data-key="Digit7"><span class="key-label">7</span><span class="key-count">0</span></div>
+                    <div class="key" data-key="Digit8"><span class="key-label">8</span><span class="key-count">0</span></div>
+                    <div class="key" data-key="Digit9"><span class="key-label">9</span><span class="key-count">0</span></div>
+                    <div class="key" data-key="Digit0"><span class="key-label">0</span><span class="key-count">0</span></div>
+                    <div class="key" data-key="Minus"><span class="key-label">-</span><span class="key-count">0</span></div>
+                    <div class="key" data-key="Equal"><span class="key-label">=</span><span class="key-count">0</span></div>
+                    <div class="key key-backspace" data-key="Backspace"><span class="key-label">Backspace</span><span class="key-count">0</span></div>
+                </div>
+
+                <!-- Row 2 -->
+                <div class="keyboard-row">
+                    <div class="key key-tab" data-key="Tab"><span class="key-label">Tab</span><span class="key-count">0</span></div>
+                    <div class="key" data-key="KeyQ"><span class="key-label">Q</span><span class="key-count">0</span></div>
+                    <div class="key" data-key="KeyW"><span class="key-label">W</span><span class="key-count">0</span></div>
+                    <div class="key" data-key="KeyE"><span class="key-label">E</span><span class="key-count">0</span></div>
+                    <div class="key" data-key="KeyR"><span class="key-label">R</span><span class="key-count">0</span></div>
+                    <div class="key" data-key="KeyT"><span class="key-label">T</span><span class="key-count">0</span></div>
+                    <div class="key" data-key="KeyY"><span class="key-label">Y</span><span class="key-count">0</span></div>
+                    <div class="key" data-key="KeyU"><span class="key-label">U</span><span class="key-count">0</span></div>
+                    <div class="key" data-key="KeyI"><span class="key-label">I</span><span class="key-count">0</span></div>
+                    <div class="key" data-key="KeyO"><span class="key-label">O</span><span class="key-count">0</span></div>
+                    <div class="key" data-key="KeyP"><span class="key-label">P</span><span class="key-count">0</span></div>
+                    <div class="key" data-key="BracketLeft"><span class="key-label">[</span><span class="key-count">0</span></div>
+                    <div class="key" data-key="BracketRight"><span class="key-label">]</span><span class="key-count">0</span></div>
+                    <div class="key key-backslash" data-key="Backslash"><span class="key-label">\</span><span class="key-count">0</span></div>
+                </div>
+
+                <!-- Row 3 -->
+                <div class="keyboard-row">
+                    <div class="key key-caps" data-key="CapsLock"><span class="key-label">Caps</span><span class="key-count">0</span></div>
+                    <div class="key" data-key="KeyA"><span class="key-label">A</span><span class="key-count">0</span></div>
+                    <div class="key" data-key="KeyS"><span class="key-label">S</span><span class="key-count">0</span></div>
+                    <div class="key" data-key="KeyD"><span class="key-label">D</span><span class="key-count">0</span></div>
+                    <div class="key" data-key="KeyF"><span class="key-label">F</span><span class="key-count">0</span></div>
+                    <div class="key" data-key="KeyG"><span class="key-label">G</span><span class="key-count">0</span></div>
+                    <div class="key" data-key="KeyH"><span class="key-label">H</span><span class="key-count">0</span></div>
+                    <div class="key" data-key="KeyJ"><span class="key-label">J</span><span class="key-count">0</span></div>
+                    <div class="key" data-key="KeyK"><span class="key-label">K</span><span class="key-count">0</span></div>
+                    <div class="key" data-key="KeyL"><span class="key-label">L</span><span class="key-count">0</span></div>
+                    <div class="key" data-key="Semicolon"><span class="key-label">;</span><span class="key-count">0</span></div>
+                    <div class="key" data-key="Quote"><span class="key-label">'</span><span class="key-count">0</span></div>
+                    <div class="key key-enter" data-key="Enter"><span class="key-label">Enter</span><span class="key-count">0</span></div>
+                </div>
+
+                <!-- Row 4 -->
+                <div class="keyboard-row">
+                    <div class="key key-shift-left" data-key="ShiftLeft"><span class="key-label">Shift</span><span class="key-count">0</span></div>
+                    <div class="key" data-key="KeyZ"><span class="key-label">Z</span><span class="key-count">0</span></div>
+                    <div class="key" data-key="KeyX"><span class="key-label">X</span><span class="key-count">0</span></div>
+                    <div class="key" data-key="KeyC"><span class="key-label">C</span><span class="key-count">0</span></div>
+                    <div class="key" data-key="KeyV"><span class="key-label">V</span><span class="key-count">0</span></div>
+                    <div class="key" data-key="KeyB"><span class="key-label">B</span><span class="key-count">0</span></div>
+                    <div class="key" data-key="KeyN"><span class="key-label">N</span><span class="key-count">0</span></div>
+                    <div class="key" data-key="KeyM"><span class="key-label">M</span><span class="key-count">0</span></div>
+                    <div class="key" data-key="Comma"><span class="key-label">,</span><span class="key-count">0</span></div>
+                    <div class="key" data-key="Period"><span class="key-label">.</span><span class="key-count">0</span></div>
+                    <div class="key" data-key="Slash"><span class="key-label">/</span><span class="key-count">0</span></div>
+                    <div class="key key-shift-right" data-key="ShiftRight"><span class="key-label">Shift</span><span class="key-count">0</span></div>
+                </div>
+
+                <!-- Row 5 -->
+                <div class="keyboard-row">
+                    <div class="key key-ctrl" data-key="ControlLeft"><span class="key-label">Ctrl</span><span class="key-count">0</span></div>
+                    <div class="key key-meta" data-key="MetaLeft"><span class="key-label">Win</span><span class="key-count">0</span></div>
+                    <div class="key key-alt" data-key="AltLeft"><span class="key-label">Alt</span><span class="key-count">0</span></div>
+                    <div class="key key-space" data-key="Space"><span class="key-label">Space</span><span class="key-count">0</span></div>
+                    <div class="key key-alt" data-key="AltRight"><span class="key-label">Alt</span><span class="key-count">0</span></div>
+                    <div class="key key-meta" data-key="MetaRight"><span class="key-label">Win</span><span class="key-count">0</span></div>
+                    <div class="key key-ctrl" data-key="ControlRight"><span class="key-label">Ctrl</span><span class="key-count">0</span></div>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
