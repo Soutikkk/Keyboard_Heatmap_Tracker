@@ -1,5 +1,7 @@
 # 🎹 KeyPulse - Keyboard Heatmap Tracker
 
+(VibeCoded)
+
 KeyPulse is a real-time keyboard heatmap tracker. It allows you to monitor and visualize your typing habits instantly. It is built as a lightweight web application using a **Python Flask** backend and standard **vanilla HTML/CSS/JavaScript** for the frontend.
 
 As you type on your computer while the page is open, the app records your keypresses and visualizes them on a virtual QWERTY keyboard using a color-coded relative heatmap ranging from cool slate-blue (rarely pressed) to neon-hot red (most pressed).
