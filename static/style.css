@@ -1,579 +1,420 @@
-/* ==========================================
-   DESIGN SYSTEM - CSS VARIABLES
-   ========================================== */
-
-/* Default: Light Mode (Aesthetic & Clean) */
-:root {
-    --bg-primary: #f8fafc;
-    --bg-secondary: #ffffff;
-    --bg-glass: rgba(255, 255, 255, 0.7);
-    --border-color: rgba(0, 0, 0, 0.06);
-    --border-active: #3b82f6;
-    
-    --text-primary: #0f172a;
-    --text-secondary: #475569;
-    --text-muted: #94a3b8;
-
-    --key-bg: #f1f5f9;
-    --key-border: #e2e8f0;
-    --key-text: #334155;
-    
-    --btn-secondary: #f1f5f9;
-    --btn-secondary-hover: #e2e8f0;
-    --btn-secondary-text: #475569;
-
-    --btn-danger: #fee2e2;
-    --btn-danger-hover: #fecaca;
-    --btn-danger-text: #ef4444;
-    
-    --shadow-card: 0 10px 30px -10px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.02);
-    --shadow-keyboard: inset 0 1px 0 rgba(255, 255, 255, 0.8), 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-    --shadow-active: 0 0 12px rgba(59, 130, 246, 0.3);
-    
-    --kbd-bg: #f8fafc;
-    --legend-bg: linear-gradient(to right, hsl(200, 65%, 85%), hsl(95, 67%, 80%), hsl(50, 70%, 78%), hsl(15, 72%, 77%), hsl(350, 75%, 75%));
-}
-
-/* Futuristic Dark Mode (Cyberpunk / Sci-fi Glow) */
-body.cyber-dark {
-    --bg-primary: #04060a;
-    --bg-secondary: #0a0e17;
-    --bg-glass: rgba(10, 15, 26, 0.7);
-    --border-color: rgba(0, 242, 254, 0.15);
-    --border-active: #00f2fe;
-    
-    --text-primary: #e0f2fe;
-    --text-secondary: #38bdf8;
-    --text-muted: #0369a1;
-
-    --key-bg: #0d1527;
-    --key-border: rgba(0, 242, 254, 0.1);
-    --key-text: #00f2fe;
-    
-    --btn-secondary: rgba(0, 242, 254, 0.08);
-    --btn-secondary-hover: rgba(0, 242, 254, 0.2);
-    --btn-secondary-text: #00f2fe;
-
-    --btn-danger: rgba(244, 63, 94, 0.1);
-    --btn-danger-hover: rgba(244, 63, 94, 0.25);
-    --btn-danger-text: #f43f5e;
-
-    --shadow-card: 0 0 25px rgba(0, 242, 254, 0.06), inset 0 0 20px rgba(0, 0, 0, 0.6);
-    --shadow-keyboard: inset 0 0 15px rgba(0, 0, 0, 0.8), 0 0 10px rgba(0, 242, 254, 0.05);
-    --shadow-active: 0 0 20px #00f2fe, 0 0 5px #00f2fe;
-    
-    --kbd-bg: rgba(2, 6, 12, 0.7);
-    --legend-bg: linear-gradient(to right, hsl(240, 80%, 30%), hsl(160, 85%, 32%), hsl(60, 90%, 35%), hsl(25, 95%, 40%), hsl(340, 100%, 45%));
-}
-
-/* ==========================================
-   RESET & UTILITIES
-   ========================================== */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    background-color: var(--bg-primary);
-    color: var(--text-primary);
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 2.5rem 1rem;
-    overflow-x: hidden;
-    position: relative;
-    transition: background-color 0.5s ease, color 0.5s ease;
-}
-
-/* Background Aesthetics for Light Mode */
-body::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background-image: 
-        radial-gradient(circle at 15% 20%, rgba(254, 244, 244, 0.8) 0%, transparent 45%),
-        radial-gradient(circle at 85% 80%, rgba(239, 246, 255, 0.8) 0%, transparent 45%);
-    z-index: -2;
-    transition: opacity 0.5s ease;
-}
-
-/* Cyber Grid Background for Dark Mode */
-body.cyber-dark::before {
-    opacity: 0.15;
-    background-image: 
-        linear-gradient(rgba(0, 242, 254, 0.1) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0, 242, 254, 0.1) 1px, transparent 1px);
-    background-size: 40px 40px;
-    z-index: -2;
-}
-
-/* Glowing Neon Orbs in Cyber Mode */
-body.cyber-dark::after {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: 
-        radial-gradient(circle at 10% 20%, rgba(0, 242, 254, 0.15) 0%, transparent 40%),
-        radial-gradient(circle at 90% 80%, rgba(217, 70, 239, 0.12) 0%, transparent 40%);
-    z-index: -1;
-    pointer-events: none;
-}
-
-/* ==========================================
-   APP CONTAINER (GLASSMORPHISM)
-   ========================================== */
-.app-container {
-    width: 100%;
-    max-width: 1020px;
-    background: var(--bg-glass);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid var(--border-color);
-    border-radius: 24px;
-    padding: 2.5rem;
-    box-shadow: var(--shadow-card);
-    display: flex;
-    flex-direction: column;
-    gap: 2.25rem;
-    transition: all 0.5s ease;
-}
-
-/* Cyber mode container border glow */
-body.cyber-dark .app-container {
-    border: 1px solid rgba(0, 242, 254, 0.25);
-    box-shadow: 0 0 40px rgba(0, 242, 254, 0.05), inset 0 0 15px rgba(0, 242, 254, 0.03);
-}
-
-/* ==========================================
-   HEADER SECTION
-   ========================================== */
-.app-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid var(--border-color);
-    padding-bottom: 1.5rem;
-    transition: border-color 0.5s ease;
-}
-
-.logo-area {
-    display: flex;
-    align-items: center;
-    gap: 1.25rem;
-}
-
-.logo-icon {
-    font-size: 2.75rem;
-    filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.05));
-    transition: filter 0.5s ease;
-}
-
-body.cyber-dark .logo-icon {
-    filter: drop-shadow(0 0 15px rgba(0, 242, 254, 0.7));
-}
-
-.logo-text h1 {
-    font-size: 1.85rem;
-    font-weight: 800;
-    letter-spacing: -0.03em;
-    background: linear-gradient(135deg, #1e40af 0%, #3b82f6 50%, #60a5fa 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    transition: background 0.5s ease;
-}
-
-body.cyber-dark .logo-text h1 {
-    background: linear-gradient(135deg, #00f2fe 0%, #4facfe 50%, #d946ef 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    text-shadow: 0 0 10px rgba(0, 242, 254, 0.25);
-}
-
-.logo-text p {
-    font-size: 0.875rem;
-    color: var(--text-secondary);
-    font-weight: 500;
-}
-
-body.cyber-dark .logo-text p {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.75rem;
-    letter-spacing: 1px;
-}
-
-.actions {
-    display: flex;
-    gap: 0.75rem;
-}
-
-/* ==========================================
-   BUTTONS
-   ========================================== */
-.btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.6rem;
-    padding: 0.65rem 1.35rem;
-    border-radius: 10px;
-    font-weight: 600;
-    font-size: 0.875rem;
-    cursor: pointer;
-    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-    border: 1px solid transparent;
-    outline: none;
-    user-select: none;
-}
-
-.btn-secondary {
-    background-color: var(--btn-secondary);
-    color: var(--btn-secondary-text);
-    border-color: var(--border-color);
-}
-
-.btn-secondary:hover {
-    background-color: var(--btn-secondary-hover);
-    transform: translateY(-1px);
-}
-
-body.cyber-dark .btn-secondary {
-    border-color: var(--border-color);
-    box-shadow: 0 0 10px rgba(0, 242, 254, 0.05);
-}
-
-body.cyber-dark .btn-secondary:hover {
-    border-color: var(--border-active);
-    box-shadow: 0 0 15px rgba(0, 242, 254, 0.25);
-    color: #ffffff;
-}
-
-.btn-danger {
-    background-color: var(--btn-danger);
-    color: var(--btn-danger-text);
-}
-
-.btn-danger:hover {
-    background-color: var(--btn-danger-hover);
-    transform: translateY(-1px);
-}
-
-body.cyber-dark .btn-danger {
-    border-color: rgba(244, 63, 94, 0.2);
-    box-shadow: 0 0 10px rgba(244, 63, 94, 0.05);
-}
-
-body.cyber-dark .btn-danger:hover {
-    border-color: #f43f5e;
-    box-shadow: 0 0 15px rgba(244, 63, 94, 0.3);
-    color: #ffffff;
-}
-
-.btn:active {
-    transform: translateY(0);
-}
-
-/* ==========================================
-   STATS DASHBOARD
-   ========================================== */
-.stats-dashboard {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 1.25rem;
-}
-
-.stat-card {
-    background: rgba(255, 255, 255, 0.4);
-    border: 1px solid var(--border-color);
-    border-radius: 16px;
-    padding: 1.35rem;
-    display: flex;
-    align-items: center;
-    gap: 1.25rem;
-    transition: all 0.3s ease;
-}
-
-body.cyber-dark .stat-card {
-    background: rgba(13, 21, 39, 0.4);
-    box-shadow: inset 0 0 12px rgba(0, 242, 254, 0.02);
-}
-
-.stat-card:hover {
-    transform: translateY(-2px);
-    border-color: rgba(0, 0, 0, 0.12);
-    box-shadow: var(--shadow-card);
-}
-
-body.cyber-dark .stat-card:hover {
-    border-color: var(--border-active);
-    box-shadow: 0 0 20px rgba(0, 242, 254, 0.1);
-}
-
-.stat-icon {
-    font-size: 1.85rem;
-    background: rgba(0, 0, 0, 0.03);
-    padding: 0.5rem;
-    border-radius: 12px;
-    width: 52px;
-    height: 52px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: all 0.3s ease;
-}
-
-body.cyber-dark .stat-icon {
-    background: rgba(0, 242, 254, 0.06);
-    filter: drop-shadow(0 0 5px rgba(0, 242, 254, 0.3));
-}
-
-.stat-info {
-    display: flex;
-    flex-direction: column;
-}
-
-.stat-label {
-    font-size: 0.72rem;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--text-secondary);
-    font-weight: 700;
-}
-
-body.cyber-dark .stat-label {
-    font-family: 'JetBrains Mono', monospace;
-}
-
-.stat-value {
-    font-size: 1.65rem;
-    font-weight: 800;
-    color: var(--text-primary);
-    font-family: 'JetBrains Mono', monospace;
-    margin-top: 0.15rem;
-}
-
-body.cyber-dark .stat-value {
-    text-shadow: 0 0 8px rgba(56, 189, 248, 0.3);
-}
-
-/* ==========================================
-   SANDBOX SECTION
-   ========================================== */
-.sandbox-section {
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-}
-
-.card-header h2 {
-    font-size: 1.15rem;
-    font-weight: 700;
-    letter-spacing: -0.01em;
-}
-
-body.cyber-dark .card-header h2 {
-    font-family: 'JetBrains Mono', monospace;
-    text-transform: uppercase;
-    font-size: 1.05rem;
-}
-
-.badge {
-    background: rgba(59, 130, 246, 0.08);
-    color: #3b82f6;
-    border: 1px solid rgba(59, 130, 246, 0.15);
-    font-size: 0.72rem;
-    padding: 0.3rem 0.65rem;
-    border-radius: 20px;
-    font-weight: 600;
-    letter-spacing: 0.02em;
-}
-
-body.cyber-dark .badge {
-    background: rgba(0, 242, 254, 0.08);
-    color: #00f2fe;
-    border: 1px solid rgba(0, 242, 254, 0.25);
-    font-family: 'JetBrains Mono', monospace;
-    font-weight: 700;
-}
-
-textarea {
-    width: 100%;
-    height: 95px;
-    background: rgba(255, 255, 255, 0.6);
-    border: 1px solid var(--border-color);
-    border-radius: 14px;
-    color: var(--text-primary);
-    font-family: inherit;
-    font-size: 0.95rem;
-    line-height: 1.5;
-    padding: 1.1rem;
-    resize: none;
-    outline: none;
-    transition: all 0.3s ease;
-    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.02);
-}
-
-body.cyber-dark textarea {
-    background: rgba(3, 7, 18, 0.6);
-    box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.8);
-}
-
-textarea:focus {
-    border-color: var(--border-active);
-    background-color: var(--bg-secondary);
-    box-shadow: 0 0 15px rgba(59, 130, 246, 0.1);
-}
-
-body.cyber-dark textarea:focus {
-    box-shadow: 0 0 15px rgba(0, 242, 254, 0.15), inset 0 2px 8px rgba(0, 0, 0, 0.8);
-}
-
-/* ==========================================
-   VIRTUAL KEYBOARD SECTION
-   ========================================== */
-.keyboard-section {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-}
-
-.color-legend {
-    display: flex;
-    align-items: center;
-    gap: 0.85rem;
-    font-size: 0.8rem;
-    font-weight: 600;
-    color: var(--text-secondary);
-}
-
-body.cyber-dark .color-legend {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.72rem;
-}
-
-.legend-gradient {
-    width: 130px;
-    height: 10px;
-    border-radius: 6px;
-    background: var(--legend-bg);
-    border: 1px solid var(--border-color);
-}
-
-.keyboard {
-    background-color: var(--kbd-bg);
-    border: 1px solid var(--border-color);
-    border-radius: 20px;
-    padding: 1.5rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.45rem;
-    box-shadow: var(--shadow-keyboard);
-    transition: all 0.5s ease;
-}
-
-body.cyber-dark .keyboard {
-    border: 1px solid rgba(0, 242, 254, 0.15);
-}
-
-.keyboard-row {
-    display: flex;
-    gap: 0.45rem;
-    justify-content: center;
-    width: 100%;
-    min-width: 820px;
-}
-
-/* The Virtual Key Design */
-.key {
-    background-color: var(--key-bg);
-    border: 1px solid var(--key-border);
-    border-radius: 8px;
-    color: var(--key-text);
-    font-family: 'JetBrains Mono', monospace;
-    font-weight: 600;
-    font-size: 0.85rem;
-    height: 52px;
-    flex: 1 1 0%;
-    min-width: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0.45rem 0.25rem;
-    cursor: pointer;
-    position: relative;
-    box-shadow: var(--shadow-keyboard);
-    transition: background-color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease, color 0.4s ease, transform 0.05s, filter 0.2s;
-}
-
-.key:hover {
-    filter: brightness(1.08);
-}
-
-body.cyber-dark .key:hover {
-    filter: brightness(1.3) drop-shadow(0 0 5px rgba(0, 242, 254, 0.2));
-}
-
-/* Key Active Down-state Visuals */
-.key.active {
-    transform: translateY(3px) scale(0.95);
-    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.25), var(--shadow-active);
-    z-index: 10;
-}
-
-body.cyber-dark .key.active {
-    border-color: #00f2fe !important;
-    background-color: #00f2fe !important;
-    color: #04060a !important;
-    text-shadow: none !important;
-    box-shadow: 0 0 25px #00f2fe, inset 0 2px 5px rgba(0, 0, 0, 0.5) !important;
-}
-
-.key-label {
-    line-height: 1.1;
-    pointer-events: none;
-    letter-spacing: -0.01em;
-}
-
-.key-count {
-    font-size: 0.65rem;
-    color: var(--text-muted);
-    font-weight: 700;
-    opacity: 0.7;
-    pointer-events: none;
-}
-
-.key.has-count .key-count {
-    opacity: 1;
-}
-
-/* Special Keys Width Overrides */
-.key-backspace { flex-grow: 1.85; }
-.key-tab { flex-grow: 1.45; }
-.key-backslash { flex-grow: 1.25; }
-.key-caps { flex-grow: 1.75; }
-.key-enter { flex-grow: 2.05; }
-.key-shift-left { flex-grow: 2.35; }
-.key-shift-right { flex-grow: 2.35; }
-.key-space { flex-grow: 7.2; }
-.key-ctrl { flex-grow: 1.3; }
-.key-meta { flex-grow: 1.3; }
-.key-alt { flex-grow: 1.3; }
-
-/* Responsive adjustments */
-@media (max-width: 900px) {
-    body {
-        padding: 1.5rem 0.5rem;
+```javascript
+document.addEventListener('DOMContentLoaded', () => {
+    // DOM Elements
+    const virtualKeyboard = document.getElementById('virtual-keyboard');
+    const typingSandbox = document.getElementById('typing-sandbox');
+    const resetBtn = document.getElementById('reset-btn');
+    const themeToggleBtn = document.getElementById('theme-toggle');
+    const themeIcon = document.getElementById('theme-icon');
+    const themeText = document.getElementById('theme-text');
+
+    const statTotal = document.getElementById('stat-total');
+    const statPeak = document.getElementById('stat-peak');
+    const statUnique = document.getElementById('stat-unique');
+
+    // Global counts cache to allow instant redraw on theme changes
+    let currentCounts = {};
+
+    // Used to prevent older async API responses from overwriting newer data
+    let latestRequestId = 0;
+
+    // Prevent overlapping reset requests
+    let isResetting = false;
+
+    // Create a map of virtual key elements for fast DOM access
+    const keyElements = {};
+
+    document.querySelectorAll('.key').forEach(keyEl => {
+        const keyCode = keyEl.getAttribute('data-key');
+
+        if (keyCode) {
+            keyElements[keyCode] = keyEl;
+        }
+    });
+
+    // Helper to format Key Codes into user-friendly names for stats dashboard
+    function formatKeyName(code) {
+        if (!code) return '-';
+
+        if (code.startsWith('Key')) {
+            return code.slice(3);
+        }
+
+        if (code.startsWith('Digit')) {
+            return code.slice(5);
+        }
+
+        if (code === 'Space') {
+            return 'Spacebar';
+        }
+
+        if (code.endsWith('Left')) {
+            return code.replace('Left', ' (Left)');
+        }
+
+        if (code.endsWith('Right')) {
+            return code.replace('Right', ' (Right)');
+        }
+
+        return code.replace(/([A-Z])/g, ' $1').trim();
     }
-    .app-container {
-        padding: 1.5rem;
+
+    // Initialize Theme
+    const savedTheme = localStorage.getItem('theme') || 'cyber-dark';
+
+    function applyTheme(theme) {
+        const isDark = theme === 'cyber-dark';
+
+        document.body.classList.toggle('cyber-dark', isDark);
+
+        if (themeIcon) {
+            themeIcon.textContent = isDark ? '🌙' : '🌸';
+        }
+
+        if (themeText) {
+            themeText.textContent = isDark
+                ? 'Cyber Dark'
+                : 'Light Aesthetic';
+        }
+
+        // Redraw heatmap using the active theme
+        updateHeatmapUI(currentCounts);
     }
-}
+
+    applyTheme(savedTheme);
+
+    // Toggle Theme Event
+    if (themeToggleBtn) {
+        themeToggleBtn.addEventListener('click', () => {
+            const isDark = document.body.classList.toggle('cyber-dark');
+            const newTheme = isDark ? 'cyber-dark' : 'light';
+
+            localStorage.setItem('theme', newTheme);
+
+            if (themeIcon) {
+                themeIcon.textContent = isDark ? '🌙' : '🌸';
+            }
+
+            if (themeText) {
+                themeText.textContent = isDark
+                    ? 'Cyber Dark'
+                    : 'Light Aesthetic';
+            }
+
+            updateHeatmapUI(currentCounts);
+        });
+    }
+
+    // Function to calculate and render heatmap colors
+    function updateHeatmapUI(counts) {
+        // Make sure counts is always a valid object
+        if (!counts || typeof counts !== 'object') {
+            counts = {};
+        }
+
+        currentCounts = { ...counts };
+
+        let totalCount = 0;
+        let uniqueCount = 0;
+        let maxCount = 0;
+        let peakKey = '-';
+
+        // Calculate metrics
+        for (const [key, rawCount] of Object.entries(counts)) {
+            const count = Number(rawCount) || 0;
+
+            if (count > 0) {
+                totalCount += count;
+                uniqueCount++;
+
+                if (count > maxCount) {
+                    maxCount = count;
+                    peakKey = key;
+                }
+            }
+        }
+
+        // Update dashboard counters safely
+        if (statTotal) {
+            statTotal.textContent = totalCount.toLocaleString();
+        }
+
+        if (statUnique) {
+            statUnique.textContent = uniqueCount.toLocaleString();
+        }
+
+        if (statPeak) {
+            statPeak.textContent = maxCount > 0
+                ? `${formatKeyName(peakKey)} (${maxCount.toLocaleString()})`
+                : '-';
+        }
+
+        const isCyberDark =
+            document.body.classList.contains('cyber-dark');
+
+        // Update each key's styling and count badge
+        Object.entries(keyElements).forEach(([keyCode, element]) => {
+            const count = Number(counts[keyCode]) || 0;
+            const countBadge = element.querySelector('.key-count');
+
+            // Safely update count badge
+            if (countBadge) {
+                countBadge.textContent = count.toLocaleString();
+            }
+
+            if (count > 0 && maxCount > 0) {
+                element.classList.add('has-count');
+
+                const ratio = Math.min(count / maxCount, 1);
+
+                if (isCyberDark) {
+                    // FUTURISTIC NEON GLOW COLOR FORMULAS
+                    const hue = 240 - (ratio * 260);
+                    const saturation = 80 + (ratio * 20);
+                    const lightness = 30 + (ratio * 15);
+
+                    element.style.backgroundColor =
+                        `hsl(${hue}, ${saturation}%, ${lightness}%)`;
+
+                    element.style.borderColor =
+                        `hsl(${hue}, ${saturation}%, ${lightness + 10}%)`;
+
+                    element.style.color = '#ffffff';
+
+                    element.style.boxShadow =
+                        `0 0 12px hsla(${hue}, ${saturation}%, ${lightness}%, 0.55)`;
+
+                    element.style.textShadow =
+                        '0 0 4px rgba(255, 255, 255, 0.6)';
+                } else {
+                    // LIGHT AESTHETIC PASTEL COLOR FORMULAS
+                    const hue = 200 - (ratio * 210);
+                    const saturation = 60 + (ratio * 15);
+                    const lightness = 85 - (ratio * 10);
+
+                    element.style.backgroundColor =
+                        `hsl(${hue}, ${saturation}%, ${lightness}%)`;
+
+                    element.style.borderColor =
+                        `hsl(${hue}, ${saturation}%, ${lightness - 10}%)`;
+
+                    element.style.color = '#1e293b';
+
+                    element.style.boxShadow =
+                        '0 2px 4px rgba(0, 0, 0, 0.04)';
+
+                    element.style.textShadow = '';
+                }
+            } else {
+                element.classList.remove('has-count');
+
+                // Revert to CSS stylesheet defaults
+                element.style.backgroundColor = '';
+                element.style.borderColor = '';
+                element.style.color = '';
+                element.style.boxShadow = '';
+                element.style.textShadow = '';
+            }
+        });
+    }
+
+    // API Call: Fetch current statistics from backend
+    async function fetchStats() {
+        const requestId = ++latestRequestId;
+
+        try {
+            const response = await fetch('/stats', {
+                method: 'GET',
+                cache: 'no-store'
+            });
+
+            if (!response.ok) {
+                throw new Error(`Stats request failed: ${response.status}`);
+            }
+
+            const counts = await response.json();
+
+            // Ignore stale response
+            if (requestId !== latestRequestId) {
+                return;
+            }
+
+            updateHeatmapUI(counts);
+
+        } catch (error) {
+            console.error('Error fetching key stats:', error);
+        }
+    }
+
+    // API Call: Track keypress to backend
+    async function trackKeyPress(keyCode) {
+        // Every new request invalidates older responses
+        const requestId = ++latestRequestId;
+
+        try {
+            const response = await fetch('/track', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    key: keyCode
+                })
+            });
+
+            if (!response.ok) {
+                throw new Error(`Track request failed: ${response.status}`);
+            }
+
+            const result = await response.json();
+
+            // Ignore an older response if a newer request already happened
+            if (requestId !== latestRequestId) {
+                return;
+            }
+
+            if (result && result.counts) {
+                updateHeatmapUI(result.counts);
+            }
+
+        } catch (error) {
+            console.error('Error tracking key:', error);
+        }
+    }
+
+    // Animate a key press
+    function animateKey(keyElement) {
+        if (!keyElement) return;
+
+        keyElement.classList.add('active');
+
+        setTimeout(() => {
+            keyElement.classList.remove('active');
+        }, 120);
+    }
+
+    // Event Listener: Track physical keyboard presses
+    window.addEventListener('keydown', event => {
+        // Ignore repeated keydown events when holding a key
+        if (event.repeat) return;
+
+        const keyCode = event.code;
+        const keyElement = keyElements[keyCode];
+
+        if (keyElement) {
+            animateKey(keyElement);
+            trackKeyPress(keyCode);
+        }
+    });
+
+    // Support clicking virtual keyboard keys directly
+    if (virtualKeyboard) {
+        virtualKeyboard.addEventListener('click', event => {
+            const keyElement = event.target.closest('.key');
+
+            if (!keyElement) return;
+
+            const keyCode = keyElement.getAttribute('data-key');
+
+            if (!keyCode) return;
+
+            animateKey(keyElement);
+            trackKeyPress(keyCode);
+        });
+    }
+
+    // Reset Heatmap logic
+    if (resetBtn) {
+        resetBtn.addEventListener('click', async () => {
+            if (isResetting) return;
+
+            const confirmed = confirm(
+                'Are you sure you want to reset all tracked heatmap stats? This cannot be undone.'
+            );
+
+            if (!confirmed) return;
+
+            isResetting = true;
+            resetBtn.disabled = true;
+
+            try {
+                // Invalidate previous requests
+                latestRequestId++;
+
+                const response = await fetch('/reset', {
+                    method: 'POST'
+                });
+
+                if (!response.ok) {
+                    throw new Error(
+                        `Reset request failed: ${response.status}`
+                    );
+                }
+
+                const result = await response.json();
+
+                if (result && result.counts) {
+                    updateHeatmapUI(result.counts);
+                } else {
+                    updateHeatmapUI({});
+                }
+
+            } catch (error) {
+                console.error('Error resetting stats:', error);
+                alert('Failed to reset heatmap statistics. Please try again.');
+            } finally {
+                isResetting = false;
+                resetBtn.disabled = false;
+            }
+        });
+    }
+
+    // Initial load
+    fetchStats();
+
+    // Auto-polling: Refresh heatmap stats every 1.5 seconds
+    setInterval(fetchStats, 1500);
+});
+```
+
+### One important bug I fixed
+
+Your original code can produce this situation:
+
+```text
+Key A pressed
+    ↓
+POST /track
+
+Key B pressed immediately
+    ↓
+POST /track
+
+Response B arrives first
+    ↓
+UI = correct
+
+Response A arrives later
+    ↓
+UI = OLD DATA ❌
+```
+
+This is especially noticeable when typing quickly.
+
+The new `latestRequestId` prevents an older response from replacing newer information.
+
+I also changed:
+
+```javascript
+hsl(..., 0.55)
+```
+
+to:
+
+```javascript
+hsla(..., 0.55)
+```
+
+for the neon glow, because `hsla()` explicitly expresses the alpha value and is clearer/safer across browsers.
+
+**Your existing `/stats`, `/track`, and `/reset` backend API structure does not need to change.**
